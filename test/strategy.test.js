@@ -1,16 +1,16 @@
-const EsiaStrategy = require('../lib/strategy');
-const chai = require('chai');
-const fs = require('fs');
-const path = require('path');
-const url = require('url');
-const querystring = require('querystring');
+import EsiaStrategy from '../lib/strategy';
+import { passport } from 'chai';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import { parse } from 'url';
+import { parse as _parse } from 'querystring';
 
 const sign = {
-  key: fs.readFileSync(
-    path.resolve(__dirname, 'fixtures', 'sign', 'private.key'), {encoding: 'utf8'}
+  key: readFileSync(
+    resolve(__dirname, 'fixtures', 'sign', 'private.key'), {encoding: 'utf8'}
   ),
-  certificate: fs.readFileSync(
-    path.resolve(__dirname, 'fixtures', 'sign', 'server.pem'), {encoding: 'utf8'}
+  certificate: readFileSync(
+    resolve(__dirname, 'fixtures', 'sign', 'server.pem'), {encoding: 'utf8'}
   )
 };
 
@@ -48,9 +48,9 @@ describe('Strategy', function() {
     let urlParams;
   
     before((done) => {
-      chai.passport.use(strategy)
+      passport.use(strategy)
         .redirect((u) => {
-          urlParams = url.parse(u);
+          urlParams = parse(u);
           done();
         })
         .req((req) => {
@@ -62,7 +62,7 @@ describe('Strategy', function() {
     it('should be redirected', () => {
       expect(urlParams.host).to.equal('esia-portal1.test.gosuslugi.ru');
       expect(urlParams.pathname).to.equal('/aas/oauth2/ac');
-      const query = querystring.parse(urlParams.query);
+      const query = _parse(urlParams.query);
       expect(Object.keys(query)).to.have.members([
         'timestamp', 'access_type', 'client_secret', 'response_type', 'scope', 'state', 'client_id', 'redirect_uri'
       ]);
