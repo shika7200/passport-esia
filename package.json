@@ -1,5 +1,5 @@
 {
-  "name": "passport-esia",
+  "name": "passport-esia-esm",
   "version": "0.1.0",
   "description": "ESIA authentication strategy for Passport with GOST ciphers support",
   "main": "./lib",
@@ -10,7 +10,7 @@
     "name": "skylord",
     "email": "me@skylord.ru"
   },
-	"contributors": [
+  "contributors": [
     "inkz <inkz@xakep.ru>"
   ],
   "repository": {
@@ -24,14 +24,15 @@
     "node-gost": "github:romansopov/node-gost",
     "passport-oauth2": "^1.4.0",
     "pkijs": "^2.1.86",
-    "uuid": "^3.3.2"
+    "uuid": "^7.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-passport-strategy": "^1.0.1",
-    "mocha": "^5.2.0"
+    "mocha": "^9.2.2"
   },
   "engines": {
     "node": ">=7.6.0"
   }
+
 }
